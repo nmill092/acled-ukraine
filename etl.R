@@ -6,8 +6,7 @@ ua <- acled_data %>%
   filter(COUNTRY == "Ukraine" & as.Date(EVENT_DATE) >= as.Date("2022-02-23")) %>% select(EVENT_DATE, YEAR, EVENT_ID_CNTY, EVENT_TYPE, SUB_EVENT_TYPE, FATALITIES, ACTOR1, ASSOC_ACTOR_1,ACTOR2,ASSOC_ACTOR_2, ADMIN1, ADMIN2, ADMIN3, LOCATION, LATITUDE, LONGITUDE, SOURCE, NOTES, TIMESTAMP)
 
 ua_summed <- ua %>%
-  mutate(id = row_number()) %>%
-  group_by(id, EVENT_DATE, ADMIN1, EVENT_TYPE) %>%
+  group_by(EVENT_DATE, ADMIN1, EVENT_TYPE) %>%
   summarize(incidents = n(), fatalities = sum(FATALITIES, na.rm=T))
 
 jsonlite::minify(jsonlite::toJSON(ua_summed,auto_unbox = T)) %>%
