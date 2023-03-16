@@ -12,5 +12,3 @@ ua_summed <- ua %>%
 
 jsonlite::minify(jsonlite::toJSON(ua_summed,auto_unbox = T)) %>%
   readr::write_file(here("ua_3-10-23-summed.json"),append = F)
-
-R.utils::gzip(here("ua_3-10-23-summed.json"))
